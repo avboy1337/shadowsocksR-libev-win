@@ -1,0 +1,56 @@
+diff --git a/libcork/posix/env.c b/libcork/posix/env.c
+index e5f5fd7..d3ac5f3 100644
+--- a/libcork/posix/env.c
++++ b/libcork/posix/env.c
+@@ -253,11 +253,11 @@ cork_env_set_vars(void *user_data, struct cork_hash_table_entry *entry)
+  *
+  * [1] http://www.gnu.org/software/gnulib/manual/html_node/clearenv.html
+  */
+-static void
+-clearenv(void)
+-{
+-    *environ = NULL;
+-}
++// static void
++// clearenv(void)
++// {
++//     *environ = NULL;
++// }
+ 
+ #else
+ /* Otherwise assume that we have clearenv available. */
+diff --git a/src/acl.c b/src/acl.c
+index f6ea020..36db2c2 100644
+--- a/src/acl.c
++++ b/src/acl.c
+@@ -348,7 +348,7 @@ trimwhitespace(char *str)
+     char *end;
+ 
+     // Trim leading space
+-    while (isspace(*str))
++    while (isspace((int)(*str)))
+         str++;
+ 
+     if (*str == 0)   // All spaces?
+@@ -356,7 +356,7 @@ trimwhitespace(char *str)
+ 
+     // Trim trailing space
+     end = str + strlen(str) - 1;
+-    while (end > str && isspace(*end))
++    while (end > str && isspace((int)(*end)))
+         end--;
+ 
+     // Write new null terminator
+diff --git a/src/utils.c b/src/utils.c
+index 94f8a83..673cc87 100644
+--- a/src/utils.c
++++ b/src/utils.c
+@@ -92,7 +92,7 @@ int
+ ss_isnumeric(const char *s) {
+     if (!s || !*s)
+         return 0;
+-    while (isdigit(*s))
++    while (isdigit((int)(*s)))
+         ++s;
+     return *s == '\0';
+ }
